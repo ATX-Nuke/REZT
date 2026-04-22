@@ -3,337 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShieldBot | 終極 Discord 防禦系統</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #00d4ff;
-            --secondary: #0055ff;
-            --bg: #0a0b10;
-            --card-bg: #161b22;
-            --text: #ffffff;
-            --accent: #ff0055;
-            --terminal-bg: #0d1117;
-            --discord: #5865F2;
-        }
+    <title>小堅果ღ𝑅𝑒𝑧𝑡ღ</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    <meta property="og:title" content="小堅果ღ𝑅𝑒𝑧𝑡ღ | Vy Hub Founder" />
+    <meta property="og:description" content="Official profile of Rezt. Coder & Founder of Vy Hub. Exploring the boundaries of code and creativity." />
+    <meta property="og:image" content="https://i.pinimg.com/1200x/d6/9d/ab/d69dab27da95cdd1e61007ae3e31a43c.jpg" />
+    <meta property="og:url" content="你的網址連結" />
+    <meta name="theme-color" content="#ffffff">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* 背景特效 */
-        .bg-glow {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1a2333 0%, #0a0b10 100%);
-            z-index: -1;
-        }
-
-        /* 導覽列 */
-        nav {
-            padding: 1.2rem 10%;
+            background-color: #000000;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            background: rgba(10, 11, 16, 0.85);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #30363d;
+            min-height: 100vh;
+            overflow: hidden;
+            transition: background-image 0.8s ease-in-out;
         }
 
-        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: var(--primary); display: flex; align-items: center; gap: 10px; }
-
-        .nav-links { display: flex; align-items: center; gap: 20px; }
-
-        /* 英雄區塊 */
-        .hero {
-            padding: 120px 10% 80px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(0,212,255,0.08) 0%, transparent 100%);
+        audio {
+            display: none;
         }
 
-        .hero h1 {
-            font-size: 3.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .hero p { font-size: 1.25rem; color: #8b949e; max-width: 800px; margin: 0 auto 40px; }
-
-        /* 按鈕樣式 */
-        .btn {
-            padding: 14px 32px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-flex;
+        #intro-screen {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            transition: opacity 0.5s ease;
+            z-index: 10;
+        }
+
+        .enter-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 30px;
             cursor: pointer;
-            border: none;
-            font-size: 1rem;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            animation: heartbeat 1.5s infinite;
         }
 
-        .btn-primary { background: var(--primary); color: #000; }
-        .btn-primary:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3); }
+        .enter-btn:hover {
+            background-color: #ffffff;
+        }
 
-        .btn-discord { background: var(--discord); color: white; }
-        .btn-discord:hover { background: #4752C4; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3); }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
 
-        .btn-outline { border: 1px solid #30363d; color: white; background: transparent; }
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+        #profile-screen {
+            display: none;
+            opacity: 0;
+            width: 100%;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
 
-        /* 黑名單監控區塊 */
-        .blacklist-monitor { padding: 60px 10% 100px; background: #0a0b10; }
-        
-        .terminal-container {
-            background: var(--terminal-bg);
-            border: 1px solid #30363d;
+        .profile-card {
+            background-color: #ffffff;
+            color: #000000;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .profile-card:hover {
+            transform: scale(1.05);
+        }
+
+        .banner {
+            width: 100%;
+            height: 140px;
+            background-image: url('https://i.pinimg.com/originals/1f/ef/28/1fef28587d65c76c2c40093407aae79a.gif');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .avatar-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -55px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            object-fit: cover;
+            background-color: #000000;
+        }
+
+        .sticky-note {
+            position: absolute;
+            background-color: #ffeb3b;
+            color: #000000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transform: rotate(-10deg);
+            margin-left: 130px; 
+            margin-top: -30px; 
+        }
+
+        .info {
+            text-align: center;
+            padding: 15px 25px 0;
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .founder-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { opacity: 0.6; }
+            to { opacity: 1; text-shadow: 0 0 5px rgba(0,0,0,0.2); }
+        }
+
+        .location {
+            font-size: 13px;
+            color: #666;
+            cursor: help;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .bio {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #222;
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            white-space: pre-line;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 20px 25px;
+        }
+
+        .social-btn {
+            display: block;
+            width: 50px;
+            height: 50px;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            max-width: 1000px;
-            margin: 0 auto;
+            transition: transform 0.3s ease;
+            filter: grayscale(100%);
         }
 
-        .terminal-header {
-            background: #161b22;
-            padding: 14px 20px;
-            border-bottom: 1px solid #30363d;
-            display: flex;
-            align-items: center;
+        .social-btn:hover {
+            transform: translateY(-5px);
+            filter: grayscale(0%);
         }
 
-        .dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
-        .red { background: #ff5f56; }
-        .yellow { background: #ffbd2e; }
-        .green { background: #27c93f; }
-
-        .terminal-body { padding: 15px; max-height: 650px; overflow-y: auto; }
-
-        .log-item {
-            border-bottom: 1px solid #21262d;
-            cursor: pointer;
-            transition: background 0.2s;
-            border-radius: 6px;
-            margin-bottom: 8px;
+        .social-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .log-item:hover { background: #1c2128; }
-
-        .log-summary {
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-family: 'Courier New', Courier, monospace;
+        .show-card {
+            transform: translateY(0);
         }
-
-        .log-time { color: #8b949e; font-size: 0.85rem; min-width: 160px; }
-        .log-status { font-weight: bold; padding: 2px 10px; border-radius: 4px; font-size: 0.75rem; border: 1px solid rgba(255, 0, 85, 0.3); background: rgba(255, 0, 85, 0.1); color: var(--accent); }
-        .log-target { color: #58a6ff; flex-grow: 1; font-weight: bold; font-size: 1rem; }
-
-        .log-details {
-            max-height: 0;
-            overflow: hidden;
-            padding: 0 40px;
-            background: #090c10;
-            transition: all 0.35s ease-in-out;
-            font-size: 0.9rem;
-            color: #c9d1d9;
-            border-left: 3px solid var(--accent);
-            margin: 0 20px 10px;
-        }
-
-        .log-item.active .log-details {
-            max-height: 200px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .log-item.active .fa-chevron-down { transform: rotate(180deg); color: var(--accent); }
-
-        .detail-row { display: flex; margin-bottom: 10px; border-bottom: 1px dashed #21262d; padding-bottom: 6px; }
-        .detail-label { color: #8b949e; width: 140px; flex-shrink: 0; }
-        .detail-value { color: var(--primary); font-family: monospace; }
-
-        /* 特色 */
-        .features { padding: 80px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .card { background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid #30363d; }
-        .card i { font-size: 3rem; color: var(--primary); margin-bottom: 25px; }
-
-        .speed-tag {
-            display: inline-block;
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--primary);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            margin-bottom: 25px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        footer {
-            text-align: center;
-            padding: 80px 10% 40px;
-            background: #0d1117;
-            border-top: 1px solid #21262d;
-        }
-
-        .footer-cta { margin-bottom: 40px; }
-        .copyright { color: #484f58; font-size: 0.85rem; margin-top: 30px; }
-
-        /* 滾動條 */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 5px; }
     </style>
 </head>
 <body>
-    <div class="bg-glow"></div>
 
-    <nav>
-        <div class="logo"><i class="fas fa-shield-halved"></i> SHIELD BOT</div>
-        <div class="nav-links">
-            <a href="https://discord.gg/ubSJmbWS9T" target="_blank" class="btn btn-outline" style="padding: 8px 20px; font-size: 0.9rem;"><i class="fab fa-discord"></i> 技術群組</a>
-            <a href="https://discord.com/oauth2/authorize?client_id=1474380045404602388&permissions=872415415&integration_type=0&scope=bot" target="_blank" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">邀請機器人</a>
-        </div>
-    </nav>
+    <audio id="bgm" loop>
+        <source src="https://cdn.discordapp.com/attachments/1494715909309333604/1496492960227791009/CENTRAL_CEE_FT._LIL_BABY_-_BAND4BAND_MUSIC_VIDEO.mp3?ex=69ea152d&is=69e8c3ad&hm=2fa5fa4d507d4cbb024bc025e82e36977b2c0c98cbc71533c4ab83a36764cd80&" type="audio/mpeg">
+    </audio>
 
-    <section class="hero">
-        <div class="speed-tag">⚡ 全球黑名單資料庫：已同步 <span id="ban-count">0</span> 個威脅 ID</div>
-        <h1>終極伺服器防禦體系</h1>
-        <p>基於異步並行架構，專為 Discord 伺服器安全性而生。當惡意自動化程式嘗試滲透時，我們在 0.1 秒內完成精準攔截。</p>
-        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            <a href="https://discord.com/oauth2/authorize?client_id=1474380045404602388&permissions=872415415&integration_type=0&scope=bot" target="_blank" class="btn btn-primary"><i class="fas fa-plus-circle"></i> 立即邀請部署</a>
-            <a href="https://discord.gg/ubSJmbWS9T" target="_blank" class="btn btn-discord"><i class="fab fa-discord"></i> 加入官方支援群組</a>
-        </div>
-    </section>
+    <div id="intro-screen">
+        <button class="enter-btn" id="enter-btn">❤️</button>
+    </div>
 
-    <section class="blacklist-monitor" id="monitor">
-        <div style="max-width: 1000px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-size: 2.2rem; margin-bottom: 10px;">🛡️ 實時攔截日誌</h2>
-                <p style="color: #8b949e;">所有被標記為惡意 Raid/Nuke 的機器人將被永久拒絕存取</p>
+    <div id="profile-screen">
+        <div class="profile-card" id="profile-card">
+            <div class="banner"></div>
+            
+            <div class="avatar-container">
+                <img src="https://i.pinimg.com/1200x/d6/9d/ab/d69dab27da95cdd1e61007ae3e31a43c.jpg" alt="Avatar" class="avatar">
+                <div class="sticky-note">67</div>
             </div>
             
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span style="margin-left: 10px; font-size: 0.85rem; color: #8b949e; font-family: monospace;">global_blacklist_monitor.v1</span>
-                </div>
-                <div class="terminal-body" id="log-list">
-                    </div>
+            <div class="info">
+                <h1 class="name">小堅果ღ𝑅𝑒𝑧𝑡ღ</h1>
+                <div class="founder-text">Vy Hub Founder</div>
+                <p class="location" title="居住地">📍 台灣</p>
+                <div class="bio">Coder 14y
+𝑊ℎ𝑦 𝑙𝑜𝑜𝑘 ℎ𝑒𝑟𝑒?
+𝑇ℎ𝑒𝑟𝑒'𝑠 𝑛𝑜 𝑜𝑛𝑒 ℎ𝑒𝑟𝑒.
+𝘐𝘵 𝘴𝘩𝘰𝘶𝘭𝘥 𝘣𝘦 𝘴𝘢𝘪𝘥 𝘵𝘩𝘢𝘵 𝘪𝘵 𝘥𝘰𝘦𝘴𝘯'𝘵 𝘦𝘹𝘪𝘴𝘵 𝘢𝘵 𝘢𝘭𝘭.</div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://discord.gg/pv5zduucEE" target="_blank" class="social-btn">
+                    <img src="https://i.pinimg.com/webp80/736x/5b/da/c5/5bdac50e89b8ed4324a4a7a8f7eb1f77.webp" alt="Discord">
+                </a>
+                <a href="https://www.instagram.com/nike_.114514?igsh=dnNkM2hlZ2g3cGFk" target="_blank" class="social-btn">
+                    <img src="https://i.pinimg.com/webp80/736x/ef/0e/81/ef0e8197c22b8d1563acacd2e0ef1b6a.webp" alt="Instagram">
+                </a>
+                <a href="https://vynuke.com/" target="_blank" class="social-btn">
+                    <img src="https://i.pinimg.com/webp80/736x/72/23/b4/7223b408d9a4f738ced1a4786205bda8.webp" alt="VyNuke">
+                </a>
             </div>
         </div>
-    </section>
-
-    <section class="features">
-        <div class="card">
-            <i class="fas fa-bolt"></i>
-            <h3>瞬時攔截成功</h3>
-            <p>利用 Python 核心底層循環技術，攔截速度 < 0.0000000001s (邏輯時鐘)，讓惡意行為在發生前終結。</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-history"></i>
-            <h3>深度備份還原</h3>
-            <p>透過 <code>!backup</code> 與 <code>!restore_system</code> 指令，即便遭遇毀滅性打擊，伺服器結構也能在數秒內重生。</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-user-secret"></i>
-            <h3>黑名單雲同步</h3>
-            <p>與全球惡意 Bot 名單同步更新，確保您的群組始終處於最高級別的防禦狀態。</p>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-cta">
-            <h3 style="margin-bottom: 20px;">準備好保護您的社群了嗎？</h3>
-            <a href="https://discord.com/oauth2/authorize?client_id=1474380045404602388&permissions=872415415&integration_type=0&scope=bot" target="_blank" class="btn btn-primary">邀請 ShieldBot</a>
-        </div>
-        <div class="footer-links" style="display: flex; justify-content: center; gap: 30px; font-size: 1.5rem;">
-            <a href="https://discord.gg/ubSJmbWS9T" target="_blank" style="color: #fff;"><i class="fab fa-discord"></i></a>
-            <a href="#" style="color: #fff;"><i class="fas fa-shield-alt"></i></a>
-        </div>
-        <p class="copyright">
-            &copy; 2026 ShieldBot Defense System. Created by <span class="highlight">1474086484590985389</span><br>
-            系統運行中：穩定性 99.9% | 防護等級：軍規級
-        </p>
-    </footer>
+    </div>
 
     <script>
-        // 植入你提供的 JSON 數據
-        const blacklistData = {
-            "1448054438857019402": { "tag": "Smashinator", "time": "2026-03-02 22:35:28" },
-            "416358583220043796": { "tag": "Xenon", "time": "2026-03-02 22:35:47" },
-            "1470696809784541255": { "tag": "NUKE", "time": "2026-03-02 22:35:54" },
-            "1477629397308805161": { "tag": "KL nuke", "time": "2026-03-02 22:36:01" },
-            "1465404786395447539": { "tag": "dnezSecurity", "time": "2026-03-02 22:36:24" },
-            "1454120736934596711": { "tag": "新月在幹甚麼", "time": "2026-03-02 22:36:51" },
-            "964624470985826374": { "tag": "Tickets", "time": "2026-03-08 03:25:51" },
-            "1473966735458566256": { "tag": "mikumiku390390", "time": "2026-03-08 11:26:51" },
-            "1474674680286806140": { "tag": "Security", "time": "2026-03-08 17:30:53" },
-            "1462719679008079987": { "tag": "Zy Fast Raid", "time": "2026-03-08 19:55:20" },
-            "1474112659031851172": { "tag": "Dorika", "time": "2026-03-09 07:01:26" },
-            "1402475195360481320": { "tag": "11e._", "time": "2026-03-09 14:27:33" },
-            "842335426848358430": { "tag": "zaun_sangre", "time": "2026-03-09 14:28:07" },
-            "1480919095460495601": { "tag": "測試機器人", "time": "2026-03-10 15:35:05" },
-            "1481628549730537503": { "tag": "防衛機器人", "time": "2026-03-12 14:26:14" },
-            "1447258882677411963": { "tag": "Разрушительная машина", "time": "2026-03-13 15:24:33" }
-        };
+        const enterBtn = document.getElementById('enter-btn');
+        const introScreen = document.getElementById('intro-screen');
+        const profileScreen = document.getElementById('profile-screen');
+        const profileCard = document.getElementById('profile-card');
+        const bgm = document.getElementById('bgm');
 
-        const logList = document.getElementById('log-list');
-        const banCountDisplay = document.getElementById('ban-count');
-        const botIds = Object.keys(blacklistData).reverse();
-        
-        banCountDisplay.innerText = botIds.length;
+        enterBtn.addEventListener('click', () => {
+            document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/e1/e6/d6/e1e6d6148ec6ae3b0a2c8a3a336dcad3.gif')";
+            
+            bgm.volume = 0.4;
+            bgm.play().catch(e => console.log(e));
 
-        botIds.forEach(id => {
-            const botInfo = blacklistData[id];
-            const logItem = document.createElement('div');
-            logItem.className = 'log-item';
-            logItem.onclick = function() { this.classList.toggle('active'); };
-
-            logItem.innerHTML = `
-                <div class="log-summary">
-                    <span class="log-time">[${botInfo.time}]</span>
-                    <span class="log-status">BANNED</span>
-                    <span class="log-target">@${botInfo.tag}</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="log-details">
-                    <div class="detail-row">
-                        <span class="detail-label">威脅 ID</span>
-                        <span class="detail-value">${id}</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">攔截路徑</span>
-                        <span class="detail-value">database/blacklist.json</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">安全性動作</span>
-                        <span class="detail-value">GUILD_BAN_ADD (永久)</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">執行日誌</span>
-                        <span class="detail-value">已成功從伺服器完全抹除並封鎖</span>
-                    </div>
-                </div>
-            `;
-            logList.appendChild(logItem);
+            introScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+                profileScreen.style.display = 'flex';
+                void profileScreen.offsetWidth;
+                profileScreen.style.opacity = '1';
+                profileCard.classList.add('show-card');
+            }, 500);
         });
     </script>
 </body>
