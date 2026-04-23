@@ -27,7 +27,6 @@
             transition: background-image 0.8s ease-in-out;
         }
 
-        /* 音量控制元件 */
         #volume-control {
             position: fixed;
             top: 20px;
@@ -36,19 +35,14 @@
             background: rgba(0, 0, 0, 0.6);
             padding: 10px;
             border-radius: 10px;
-            display: none; /* 進入後顯示 */
+            display: none;
             align-items: center;
             gap: 10px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        #volume-control input {
-            cursor: pointer;
-        }
-
-        audio {
-            display: none;
-        }
+        #volume-control input { cursor: pointer; }
+        audio { display: none; }
 
         #intro-screen {
             display: flex;
@@ -66,7 +60,6 @@
             height: 80px;
             font-size: 30px;
             cursor: pointer;
-            outline: none;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -74,17 +67,9 @@
             animation: heartbeat 1.5s infinite;
         }
 
-        .enter-btn:hover {
-            background-color: #ffffff;
-        }
-
         @keyframes heartbeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.15); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
-            60% { transform: scale(1); }
-            100% { transform: scale(1); }
+            0%, 60%, 100% { transform: scale(1); }
+            15%, 45% { transform: scale(1.15); }
         }
 
         #profile-screen {
@@ -100,146 +85,206 @@
         .profile-card {
             background-color: #ffffff;
             color: #000000;
-            width: 100%;
-            max-width: 420px;
-            border-radius: 20px;
+            width: 95%;
+            max-width: 800px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 162, 255, 0.5);
+            border: 3px solid #00a2ff;
+            display: flex;
+            flex-direction: column;
             transform: translateY(30px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s ease;
         }
 
-        .profile-card:hover {
-            transform: scale(1.02);
-        }
-
-        .banner {
+        .card-header-gif {
             width: 100%;
-            height: 140px;
-            background-image: url('https://i.pinimg.com/originals/1f/ef/28/1fef28587d65c76c2c40093407aae79a.gif');
+            height: 150px;
+            background-image: url('https://i.pinimg.com/originals/b0/59/9e/b0599edde0a1562995ebcd44c1e815be.gif');
             background-size: cover;
             background-position: center;
+            border-bottom: 3px solid #00a2ff;
         }
 
-        .avatar-container {
+        .card-body {
             display: flex;
-            justify-content: center;
+            flex-direction: row;
+        }
+
+        .card-left {
+            width: 240px;
+            background: #f8f8f8;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            margin-top: -55px;
+            padding: 30px 15px;
+            border-right: 1px solid #eee;
+        }
+
+        .card-right {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .avatar-wrapper {
             position: relative;
+            margin-bottom: 20px;
         }
 
         .avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 4px solid #ffffff;
+            width: 130px;
+            height: 130px;
+            border-radius: 20px;
+            border: 4px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             object-fit: cover;
-            background-color: #000000;
         }
 
-        /* 黑色便利貼 */
         .sticky-note {
             position: absolute;
-            background-color: #000000;
-            color: #ffffff;
-            padding: 5px 12px;
-            border-radius: 5px;
-            font-size: 16px;
+            bottom: -10px;
+            right: -10px;
+            background-color: #000;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
             font-weight: bold;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            transform: rotate(-10deg);
-            margin-left: 130px; 
-            margin-top: -30px;
-            border: 1px solid rgba(255,255,255,0.2);
+            transform: rotate(5deg);
+            font-size: 14px;
         }
 
-        .info {
-            text-align: center;
-            padding: 15px 25px 0;
+        .name-section {
+            margin-bottom: 15px;
         }
 
         .name {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 2px;
+            font-size: 26px;
+            font-weight: 800;
+            color: #000;
         }
 
-        .founder-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
+        .founder-tag {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .age-text {
-            font-size: 14px;
-            color: #555;
-            font-weight: bold;
-            margin-bottom: 10px;
+            margin-top: 5px;
         }
 
         .bio {
-            font-size: 13px;
-            line-height: 1.6;
-            color: #222;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #444;
+            font-style: italic;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 3px solid #ddd;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
             background: #f1f1f1;
             padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            white-space: pre-line;
-            font-style: italic;
+            border-radius: 12px;
         }
 
-        /* 新增區塊樣式 */
-        .extra-info {
-            text-align: left;
-            background: #f9f9f9;
-            margin: 0 25px 15px;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 13px;
-            border-left: 4px solid #000;
-        }
-
-        .extra-info b {
+        .info-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #888;
+            text-transform: uppercase;
             display: block;
             margin-bottom: 3px;
-            color: #000;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #00a2ff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .social-links {
             display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             justify-content: center;
-            gap: 20px;
-            padding: 0 20px 25px;
         }
 
         .social-btn {
-            display: block;
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
+            width: 40px;
+            height: 40px;
+            transition: 0.3s;
             filter: grayscale(100%);
         }
 
         .social-btn:hover {
-            transform: translateY(-5px);
             filter: grayscale(0%);
+            transform: scale(1.1);
         }
 
         .social-btn img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            border-radius: 8px;
         }
 
-        .show-card {
-            transform: translateY(0);
+        .web-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .web-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000000;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .web-btn:hover {
+            background: #222222;
+            transform: translateX(5px);
+            border-color: #00a2ff;
+        }
+
+        .show-card { transform: translateY(0); }
+
+        @media (max-width: 650px) {
+            .card-body { flex-direction: column; }
+            .profile-card { height: auto; overflow-y: auto; max-height: 90vh; }
+            .card-left { width: 100%; border-right: none; border-bottom: 1px solid #eee; }
+            .info-grid { grid-template-columns: 1fr; }
+            .card-header-gif { height: 100px; }
         }
     </style>
 </head>
@@ -260,39 +305,58 @@
 
     <div id="profile-screen">
         <div class="profile-card" id="profile-card">
-            <div class="banner"></div>
-            
-            <div class="avatar-container">
-                <img src="https://i.pinimg.com/1200x/d6/9d/ab/d69dab27da95cdd1e61007ae3e31a43c.jpg" alt="Avatar" class="avatar">
-                <div class="sticky-note">67</div>
-            </div>
-            
-            <div class="info">
-                <h1 class="name">小堅果ღ𝑅𝑒𝑧𝑡ღ</h1>
-                <div class="founder-text">Vy Hub Founder</div>
-                <div class="age-text">Age: 14y</div>
-                <div class="bio">"𝑊ℎ𝑦 𝑙𝑜𝑜𝑘 ℎ𝑒𝑟𝑒?
-𝑇ℎ𝑒𝑟𝑒'𝑠 𝑛𝑜 𝑜𝑛𝑒 ℎ𝑒𝑟𝑒.
-𝘐𝘵 𝘴𝘩𝘰𝘶𝘭𝘥 𝘣𝘦 𝘴𝘢𝘪𝘥 𝘵𝘩𝘢𝘵 𝘪𝘵 𝘥𝘰𝘦𝘴𝘯'𝘵 𝘦𝘹𝘪𝘴𝘵 𝘢𝘵 𝘢𝘭𝘭."</div>
-            </div>
+            <div class="card-header-gif"></div>
+            <div class="card-body">
+                <div class="card-left">
+                    <div class="avatar-wrapper">
+                        <img src="https://i.pinimg.com/1200x/d6/9d/ab/d69dab27da95cdd1e61007ae3e31a43c.jpg" alt="Avatar" class="avatar">
+                        <div class="sticky-note">67</div>
+                    </div>
+                    <div class="section-title">Social Media</div>
+                    <div class="social-links">
+                        <a href="https://discord.gg/pv5zduucEE" target="_blank" class="social-btn">
+                            <img src="https://i.pinimg.com/webp80/736x/5b/da/c5/5bdac50e89b8ed4324a4a7a8f7eb1f77.webp" alt="Discord">
+                        </a>
+                        <a href="https://www.instagram.com/nike_.114514?igsh=dnNkM2hlZ2g3cGFk" target="_blank" class="social-btn">
+                            <img src="https://i.pinimg.com/webp80/736x/ef/0e/81/ef0e8197c22b8d1563acacd2e0ef1b6a.webp" alt="Instagram">
+                        </a>
+                    </div>
+                </div>
 
-            <div class="extra-info">
-                <b>Code:</b> Python, JavaScript, Html
-            </div>
-            <div class="extra-info">
-                <b>Play Games:</b> Roblox, Pubg
-            </div>
+                <div class="card-right">
+                    <div class="name-section">
+                        <h1 class="name">小堅果ღ𝑅𝑒𝑧𝑡ღ</h1>
+                        <span class="founder-tag">Vy Hub Founder</span>
+                    </div>
 
-            <div class="social-links">
-                <a href="https://discord.gg/pv5zduucEE" target="_blank" class="social-btn">
-                    <img src="https://i.pinimg.com/webp80/736x/5b/da/c5/5bdac50e89b8ed4324a4a7a8f7eb1f77.webp" alt="Discord">
-                </a>
-                <a href="https://www.instagram.com/nike_.114514?igsh=dnNkM2hlZ2g3cGFk" target="_blank" class="social-btn">
-                    <img src="https://i.pinimg.com/webp80/736x/ef/0e/81/ef0e8197c22b8d1563acacd2e0ef1b6a.webp" alt="Instagram">
-                </a>
-                <a href="https://vynuke.com/" target="_blank" class="social-btn">
-                    <img src="https://i.pinimg.com/webp80/736x/72/23/b4/7223b408d9a4f738ced1a4786205bda8.webp" alt="VyNuke">
-                </a>
+                    <div class="bio">
+                        "𝑊ℎ𝑦 𝑙𝑜𝑜𝑘 ℎ𝑒𝑟ere? There's no one here. It shouldn't be said that it doesn't exist at all."
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Age</span>
+                            <span class="info-value">14y</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Code</span>
+                            <span class="info-value">Python, JS, HTML</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Games</span>
+                            <span class="info-value">Roblox, PUBG</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status</span>
+                            <span class="info-value">Coding...</span>
+                        </div>
+                    </div>
+
+                    <div class="section-title">Website</div>
+                    <div class="web-links">
+                        <a href="https://vynuke.com/" target="_blank" class="web-btn">🔗 VyNuke Official</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -308,23 +372,19 @@
 
         enterBtn.addEventListener('click', () => {
             document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/e1/e6/d6/e1e6d6148ec6ae3b0a2c8a3a336dcad3.gif')";
-            
             bgm.volume = volumeSlider.value;
             bgm.play().catch(e => console.log(e));
-
             introScreen.style.opacity = '0';
-            
             setTimeout(() => {
                 introScreen.style.display = 'none';
                 profileScreen.style.display = 'flex';
-                volumeControl.style.display = 'flex'; // 顯示音量控制
+                volumeControl.style.display = 'flex';
                 void profileScreen.offsetWidth;
                 profileScreen.style.opacity = '1';
                 profileCard.classList.add('show-card');
             }, 500);
         });
 
-        // 音量滑桿連動
         volumeSlider.addEventListener('input', (e) => {
             bgm.volume = e.target.value;
         });
