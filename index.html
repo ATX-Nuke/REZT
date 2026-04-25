@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reztnutღ𝑅𝑒𝑧𝑡ღ</title>
-    
     <meta property="og:title" content="Reztnutღ𝑅𝑒𝑧𝑡ღ">
     <meta property="og:description" content="Vy Hub Founder | Python & JavaScript Developer | 14y">
-    <meta property="og:image" content="https://i.pinimg.com/1200x/d6/9d/ab/d69dab27da95cdd1e61007ae3e31a43c.jpg">
+    <meta property="og:image" content="https://i.pinimg.com/736x/21/a9/97/21a9970c8845fb9b68fe7b6e3e86ca5a.jpg">
     <meta property="og:url" content="https://vynuke.com/">
-    <meta name="theme-color" content="#00a2ff">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/1200x/d6/9d/ab/d69dab27da95cdd1e61007ae3e31a43c.jpg">
+    <meta name="theme-color" content="#000000">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Consolas', 'Segoe UI', monospace;
         }
 
         body {
@@ -35,49 +31,27 @@
             transition: background-image 0.8s ease-in-out;
         }
 
-        #volume-control {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 10px;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        #volume-control input { cursor: pointer; }
-        audio { display: none; }
+        #bgm { display: none; }
 
         #intro-screen {
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: opacity 0.5s ease;
             z-index: 10;
         }
 
         .enter-btn {
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            font-size: 30px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 60px;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-            animation: heartbeat 1.5s infinite;
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
         }
 
-        @keyframes heartbeat {
-            0%, 60%, 100% { transform: scale(1); }
-            15%, 45% { transform: scale(1.15); }
+        .enter-btn:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 20px #00a2ff;
         }
 
         #profile-screen {
@@ -91,18 +65,16 @@
         }
 
         .profile-card {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #0a0a0a;
+            color: #ffffff;
             width: 95%;
-            max-width: 800px;
+            max-width: 950px;
             border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 0 25px rgba(0, 162, 255, 0.6);
-            border: 3px solid #00a2ff;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 162, 255, 0.1);
+            border: 1px solid rgba(0, 162, 255, 0.2);
             display: flex;
             flex-direction: column;
-            transform: translateY(30px);
-            transition: transform 0.4s ease;
         }
 
         .card-header-gif {
@@ -111,259 +83,209 @@
             background-image: url('https://i.pinimg.com/originals/b0/59/9e/b0599edde0a1562995ebcd44c1e815be.gif');
             background-size: cover;
             background-position: center;
-            border-bottom: 3px solid #00a2ff;
+            border-radius: 24px 24px 0 0;
+            opacity: 0.6;
         }
 
-        .card-body {
-            display: flex;
-            flex-direction: row;
-        }
+        .card-body { display: flex; flex-direction: row; }
 
         .card-left {
-            width: 240px;
-            background: #f8f8f8;
+            width: 200px;
+            background: rgba(15, 15, 15, 0.5);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 30px 15px;
-            border-right: 1px solid #eee;
+            padding: 35px 15px;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .card-right {
+        .card-main {
             flex: 1;
             padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .card-right-player {
+            width: 220px;
+            background: rgba(15, 15, 15, 0.5);
+            padding: 25px;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0 0 24px 0;
         }
 
-        .avatar-wrapper {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
+        .avatar-wrapper { position: relative; }
         .avatar {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             border-radius: 20px;
-            border: 4px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid #00a2ff;
             object-fit: cover;
         }
 
-        .sticky-note {
-            position: absolute;
-            bottom: -10px;
-            right: -10px;
-            background-color: #000;
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: bold;
-            transform: rotate(5deg);
-            font-size: 14px;
-        }
-
-        .name-section {
+        .vinyl-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            background: repeating-radial-gradient(#111, #111 2px, #222 3px, #111 4px);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,1);
         }
 
-        .name {
-            font-size: 26px;
-            font-weight: 800;
-            color: #000;
+        .vinyl-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            animation: rotate 5s linear infinite;
+            animation-play-state: paused;
         }
 
-        .founder-tag {
-            display: inline-block;
-            background: #000;
-            color: #fff;
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .bio {
-            font-size: 14px;
-            line-height: 1.5;
-            color: #444;
-            font-style: italic;
-            margin-bottom: 20px;
-            padding-left: 10px;
-            border-left: 3px solid #ddd;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .song-name { font-size: 11px; text-align: center; color: #888; margin-bottom: 15px; letter-spacing: 1px; }
+        
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
             gap: 15px;
-            margin-bottom: 20px;
         }
 
-        .info-item {
-            background: #f1f1f1;
-            padding: 12px;
-            border-radius: 12px;
+        .play-btn { cursor: pointer; font-size: 24px; transition: transform 0.2s; }
+        .play-btn:hover { transform: scale(1.1); }
+
+        .playback-bar {
+            width: 100%;
+            height: 4px;
+            background: #222;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+        .progress { width: 0%; height: 100%; background: #00a2ff; border-radius: 2px; transition: width 0.1s linear; }
+
+        .volume-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .volume-box input {
+            flex: 1;
+            accent-color: #00a2ff;
+            height: 3px;
+            cursor: pointer;
         }
 
-        .info-label {
-            font-size: 11px;
-            font-weight: bold;
-            color: #888;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 3px;
-        }
-
-        .info-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: #222;
-        }
-
-        .section-title {
-            font-size: 12px;
-            font-weight: bold;
-            color: #00a2ff;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .name { font-size: 26px; font-weight: 800; color: #fff; text-shadow: 0 0 10px rgba(0,162,255,0.6); }
+        .founder-tag { background: #00a2ff; color: #000; padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-top: 8px; display: inline-block; }
+        .bio { font-size: 14px; color: #bbb; font-style: italic; margin: 25px 0; padding-left: 12px; border-left: 3px solid #00a2ff; line-height: 1.6; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .info-item { background: rgba(255, 255, 255, 0.04); padding: 12px; border-radius: 12px; border: 1px solid rgba(0, 162, 255, 0.1); }
+        .info-label { font-size: 10px; color: #00a2ff; display: block; margin-bottom: 4px; text-transform: uppercase; }
+        .info-value { font-size: 14px; font-weight: bold; }
 
         .social-links {
+            margin-top: 25px;
             display: flex;
+            gap: 15px;
             flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
         }
 
         .social-btn {
-            width: 40px;
-            height: 40px;
-            transition: 0.3s;
-            filter: grayscale(100%);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 162, 255, 0.2);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .social-btn:hover {
-            filter: grayscale(0%);
-            transform: scale(1.1);
-        }
-
-        .social-btn img {
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-        }
-
-        .web-links {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .web-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000000;
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .web-btn:hover {
-            background: #111111;
+            background: #00a2ff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 162, 255, 0.4);
             transform: translateY(-2px);
-            border-color: #00a2ff;
-            box-shadow: 0 5px 15px rgba(0, 162, 255, 0.3);
         }
 
-        .show-card { transform: translateY(0); }
-
-        @media (max-width: 650px) {
+        @media (max-width: 850px) {
             .card-body { flex-direction: column; }
-            .profile-card { height: auto; overflow-y: auto; max-height: 90vh; }
-            .card-left { width: 100%; border-right: none; border-bottom: 1px solid #eee; }
-            .info-grid { grid-template-columns: 1fr; }
-            .card-header-gif { height: 100px; }
+            .card-left, .card-right-player { width: 100%; border: none; border-radius: 0; }
+            .card-right-player { border-top: 1px solid rgba(255,255,255,0.05); border-radius: 0 0 24px 24px; }
         }
     </style>
 </head>
 <body>
-
-    <div id="volume-control">
-        <span>🔊</span>
-        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.4">
-    </div>
-
     <audio id="bgm" loop>
         <source src="https://files.catbox.moe/yahkuz.mp3">
     </audio>
 
     <div id="intro-screen">
-        <button class="enter-btn" id="enter-btn">❤️</button>
+        <button class="enter-btn" id="enter-btn">🤍</button>
     </div>
 
     <div id="profile-screen">
-        <div class="profile-card" id="profile-card">
+        <div class="profile-card">
             <div class="card-header-gif"></div>
             <div class="card-body">
                 <div class="card-left">
                     <div class="avatar-wrapper">
-                        <img src="https://i.pinimg.com/1200x/d6/9d/ab/d69dab27da95cdd1e61007ae3e31a43c.jpg" alt="Avatar" class="avatar">
-                        <div class="sticky-note">67</div>
-                    </div>
-                    <div class="section-title">Social Media</div>
-                    <div class="social-links">
-                        <a href="https://discord.gg/pv5zduucEE" target="_blank" class="social-btn">
-                            <img src="https://i.pinimg.com/webp80/736x/5b/da/c5/5bdac50e89b8ed4324a4a7a8f7eb1f77.webp" alt="Discord">
-                        </a>
-                        <a href="https://www.instagram.com/nike_.114514?igsh=dnNkM2hlZ2g3cGFk" target="_blank" class="social-btn">
-                            <img src="https://i.pinimg.com/webp80/736x/ef/0e/81/ef0e8197c22b8d1563acacd2e0ef1b6a.webp" alt="Instagram">
-                        </a>
+                        <img src="https://i.pinimg.com/736x/21/a9/97/21a9970c8845fb9b68fe7b6e3e86ca5a.jpg" alt="Avatar" class="avatar">
+                        <div style="position: absolute; bottom: -8px; right: -8px; background: #00a2ff; color: #000; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 12px;">67</div>
                     </div>
                 </div>
 
-                <div class="card-right">
+                <div class="card-main">
                     <div class="name-section">
                         <h1 class="name">Reztnutღ𝑅𝑒𝑧𝑡ღ</h1>
                         <span class="founder-tag">Vy Hub Founder</span>
                     </div>
-
                     <div class="bio">
                         "𝑊ℎ𝑦 𝑙𝑜𝑜𝑘 ℎ𝑒𝑟𝑒? There's no one here. It shouldn't be said that it doesn't exist at all."
                     </div>
-
                     <div class="info-grid">
-                        <div class="info-item">
-                            <span class="info-label">Age</span>
-                            <span class="info-value">14y</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Code</span>
-                            <span class="info-value">Python, JS, HTML</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Games</span>
-                            <span class="info-value">Roblox, PUBG</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Status</span>
-                            <span class="info-value">Coding...</span>
-                        </div>
+                        <div class="info-item"><span class="info-label">Age</span><span class="info-value">14y</span></div>
+                        <div class="info-item"><span class="info-label">Code</span><span class="info-value">Python, JS</span></div>
+                        <div class="info-item"><span class="info-label">Games</span><span class="info-value">Roblox, PUBG</span></div>
+                        <div class="info-item"><span class="info-label">Status</span><span class="info-value">Coding...</span></div>
                     </div>
+                    <div class="social-links">
+                        <a href="https://vynuke.com" class="social-btn">🌐 VyNuke</a>
+                        <a href="https://discord.gg/vynuke" class="social-btn">💬 Discord</a>
+                        <a href="https://instagram.com/" class="social-btn">📷 Instagram</a>
+                    </div>
+                </div>
 
-                    <div class="section-title">Website</div>
-                    <div class="web-links">
-                        <a href="https://vynuke.com/" target="_blank" class="web-btn">🔗 VyNuke Official</a>
+                <div class="card-right-player">
+                    <div class="vinyl-container">
+                        <img src="https://i.pinimg.com/webp80/1200x/d8/b3/ee/d8b3eef2444c7d2ecff4e7eb1917f355.webp" class="vinyl-img" id="vinyl" alt="Disc">
+                    </div>
+                    <div class="song-name">BAND 4 BAND</div>
+                    <div class="player-controls">
+                        <div class="play-btn" id="play-pause">⏸️</div>
+                        <div class="playback-bar" id="bar-container">
+                            <div class="progress" id="progress-line"></div>
+                        </div>
+                        <div class="volume-box">
+                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.4">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -374,30 +296,56 @@
         const enterBtn = document.getElementById('enter-btn');
         const introScreen = document.getElementById('intro-screen');
         const profileScreen = document.getElementById('profile-screen');
-        const profileCard = document.getElementById('profile-card');
-        const volumeControl = document.getElementById('volume-control');
         const volumeSlider = document.getElementById('volume-slider');
         const bgm = document.getElementById('bgm');
+        const playPause = document.getElementById('play-pause');
+        const vinyl = document.getElementById('vinyl');
+        const progressLine = document.getElementById('progress-line');
+        const barContainer = document.getElementById('bar-container');
 
         enterBtn.addEventListener('click', () => {
             document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/e1/e6/d6/e1e6d6148ec6ae3b0a2c8a3a336dcad3.gif')";
             bgm.volume = volumeSlider.value;
-            bgm.play().catch(e => console.log(e));
+            bgm.play();
+            vinyl.style.animationPlayState = 'running';
+            
             introScreen.style.opacity = '0';
             setTimeout(() => {
                 introScreen.style.display = 'none';
                 profileScreen.style.display = 'flex';
-                volumeControl.style.display = 'flex';
                 void profileScreen.offsetWidth;
                 profileScreen.style.opacity = '1';
-                profileCard.classList.add('show-card');
             }, 500);
+        });
+
+        bgm.addEventListener('timeupdate', () => {
+            if (!isNaN(bgm.duration)) {
+                const pct = (bgm.currentTime / bgm.duration) * 100;
+                progressLine.style.width = pct + '%';
+            }
+        });
+
+        barContainer.addEventListener('click', (e) => {
+            const rect = barContainer.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            bgm.currentTime = pos * bgm.duration;
         });
 
         volumeSlider.addEventListener('input', (e) => {
             bgm.volume = e.target.value;
         });
+
+        playPause.addEventListener('click', () => {
+            if (bgm.paused) {
+                bgm.play();
+                playPause.innerText = '⏸️';
+                vinyl.style.animationPlayState = 'running';
+            } else {
+                bgm.pause();
+                playPause.innerText = '▶️';
+                vinyl.style.animationPlayState = 'paused';
+            }
+        });
     </script>
 </body>
 </html>
-```
