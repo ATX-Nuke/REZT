@@ -40,18 +40,35 @@
             z-index: 10;
         }
 
+        .terminal-outer-box {
+            border: 1px solid rgba(0, 162, 255, 0.4);
+            border-radius: 12px;
+            padding: 50px 70px;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 40px rgba(0, 162, 255, 0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .enter-btn {
-            background: transparent;
-            border: none;
+            background: #000000;
+            border: 1px solid #ffffff;
             color: #ffffff;
-            font-size: 60px;
+            font-size: 18px;
+            padding: 18px 50px;
             cursor: pointer;
-            transition: transform 0.3s ease, text-shadow 0.3s ease;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
         }
 
         .enter-btn:hover {
-            transform: scale(1.1);
-            text-shadow: 0 0 20px #00a2ff;
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
         }
 
         #profile-screen {
@@ -79,7 +96,7 @@
         }
 
         .profile-card:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
             box-shadow: 0 0 60px rgba(0, 162, 255, 0.3);
         }
 
@@ -169,7 +186,24 @@
             gap: 15px;
         }
 
-        .play-btn { cursor: pointer; font-size: 24px; transition: transform 0.2s; }
+        .play-btn { 
+            width: 50px;
+            height: 50px;
+            cursor: pointer; 
+            transition: transform 0.2s, background-image 0.3s;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .play-btn.playing {
+            background-image: url('https://i.pinimg.com/1200x/61/41/ef/6141efbd5df7c1836e82bd50f0bdbd16.jpg');
+        }
+        
+        .play-btn.paused {
+            background-image: url('https://i.pinimg.com/736x/32/08/34/32083442ea1f3d0d25d55caa2e4638b5.jpg');
+        }
+
         .play-btn:hover { transform: scale(1.1); }
 
         .playback-bar {
@@ -224,6 +258,13 @@
             gap: 8px;
         }
 
+        .social-btn img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            border-radius: 2px;
+        }
+
         .social-btn:hover {
             background: #00a2ff;
             color: #000;
@@ -235,7 +276,6 @@
             .card-body { flex-direction: column; }
             .card-left, .card-right-player { width: 100%; border: none; border-radius: 0; }
             .card-right-player { border-top: 1px solid rgba(255,255,255,0.05); border-radius: 0 0 24px 24px; }
-            .profile-card:hover { transform: none; }
         }
     </style>
 </head>
@@ -245,7 +285,9 @@
     </audio>
 
     <div id="intro-screen">
-        <button class="enter-btn" id="enter-btn">🤍</button>
+        <div class="terminal-outer-box">
+            <button class="enter-btn" id="enter-btn">Loging System</button>
+        </div>
     </div>
 
     <div id="profile-screen">
@@ -274,9 +316,15 @@
                         <div class="info-item"><span class="info-label">Status</span><span class="info-value">Coding...</span></div>
                     </div>
                     <div class="social-links">
-                        <a href="https://vynuke.com" class="social-btn">🌐 VyNuke</a>
-                        <a href="https://discord.gg/vynuke" class="social-btn">💬 Discord</a>
-                        <a href="https://instagram.com/" class="social-btn">📷 Instagram</a>
+                        <a href="https://vynuke.com" class="social-btn">
+                            <img src="https://i.pinimg.com/736x/c6/47/8f/c6478f4886effaf5e4ced0d3842fc3a5.jpg" alt="VyNuke"> VyNuke
+                        </a>
+                        <a href="https://discord.gg/vynuke" class="social-btn">
+                            <img src="https://i.pinimg.com/736x/b5/d4/ce/b5d4ce10a744861ffd3314d20d116976.jpg" alt="Discord"> Discord
+                        </a>
+                        <a href="https://instagram.com/" class="social-btn">
+                            <img src="https://i.pinimg.com/webp80/736x/3c/0b/52/3c0b5296e29c391d50a7580b3e949a34.webp" alt="Instagram"> Instagram
+                        </a>
                     </div>
                 </div>
 
@@ -286,14 +334,14 @@
                     </div>
                     <div class="song-name">BAND 4 BAND</div>
                     <div class="player-controls">
-                        <div class="play-btn" id="play-pause">⏸️</div>
+                        <div class="play-btn playing" id="play-pause"></div>
                         <div class="playback-bar" id="bar-container">
                             <div class="progress" id="progress-line"></div>
                         </div>
                         <div class="volume-box">
                             <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.4">
                         </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -345,11 +393,11 @@
         playPause.addEventListener('click', () => {
             if (bgm.paused) {
                 bgm.play();
-                playPause.innerText = '⏸️';
+                playPause.className = 'play-btn playing';
                 vinyl.style.animationPlayState = 'running';
             } else {
                 bgm.pause();
-                playPause.innerText = '▶️';
+                playPause.className = 'play-btn paused';
                 vinyl.style.animationPlayState = 'paused';
             }
         });
